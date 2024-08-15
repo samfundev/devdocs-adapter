@@ -379,8 +379,9 @@ export class Downloader {
                 location: ProgressLocation.Notification,
             },
             progress => {
-                this._reporter = (message, increment) => progress.report({ message, increment });
-                return this._download(doc);
+                const downloader = new Downloader(this._storePath);
+                downloader._reporter = (message, increment) => progress.report({ message, increment });
+                return downloader._download(doc);
             },
         )));
     }
